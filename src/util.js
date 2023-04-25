@@ -59,7 +59,7 @@ function chillHop() {
       cover:
         "https://chillhop.com/wp-content/uploads/2021/07/034f52eeaeceb144cca67b0930d705d32fc39e37-1024x1024.jpg",
       id: uuidv4(),
-      active: false,
+      active: true,
       color: ["#F8AA5F", "#E9807F"],
     },
     {
@@ -73,3 +73,5 @@ function chillHop() {
     },
   ];
 }
+
+export default chillHop;
