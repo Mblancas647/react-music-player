@@ -3,6 +3,7 @@ import "./styles/app.scss";
 //Import Components
 import Player from "./components/Player";
 import Song from "./components/Song";
+import Library from "./components/Library";
 //Import Util
 import data from "./util";
 import { useState } from "react";
@@ -20,6 +21,7 @@ function App() {
         isPlaying={isPlaying}
         currentSong={currentSong}
       ></Player>
+      <Library songs={songs}></Library>
     </div>
   );
 }
