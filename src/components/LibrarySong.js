@@ -1,6 +1,14 @@
-function LibrarySong({ song, songs, setCurrentSong, id }) {
+function LibrarySong({ song, songs, setCurrentSong, id, audioRef, isPlaying }) {
   const songSelectHandler = () => {
     setCurrentSong(song);
+    if (isPlaying) {
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          audioRef.current.play();
+        });
+      }
+    }
   };
   return (
     <div onClick={songSelectHandler} className="library-song">
