@@ -6,6 +6,7 @@ import {
   faPause,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
+import { playAudio } from "../util";
 
 function Player({
   currentSong,
@@ -33,6 +34,15 @@ function Player({
       }
     });
     setSongs(newSongs);
+    //Plays the new song every time current song state changes if a song was already playing
+    if (isPlaying) {
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          audioRef.current.play();
+        });
+      }
+    }
   }, [currentSong]);
   //Event Handlers
   const playSongHandler = () => {
@@ -64,6 +74,7 @@ function Player({
         setCurrentSong(songs[currentIndex - 1]);
       }
     }
+    //playAudio(isPlaying, audioRef);
   };
 
   return (
@@ -77,7 +88,7 @@ function Player({
           onChange={dragHandler}
           type="range"
         />
-        <p>{getTime(songInfo.duration)}</p>
+        <p>{songInfo.duration ? getTime(songInfo.duration) : "0:00"}</p>
       </div>
       <div className="play-control">
         <FontAwesomeIcon

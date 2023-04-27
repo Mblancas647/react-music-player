@@ -6,13 +6,13 @@ import Song from "./components/Song";
 import Library from "./components/Library";
 import Nav from "./components/Nav";
 //Import Util
-import data from "./util";
+import data from "./data";
 import { useState, useRef } from "react";
 
 function App() {
   //State
   const [songs, setSongs] = useState(data());
-  const [currentSong, setCurrentSong] = useState(songs[5]);
+  const [currentSong, setCurrentSong] = useState(songs[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [songInfo, setSongInfo] = useState({
     currentTime: 0,
