@@ -38,6 +38,18 @@ function App() {
       animationPercentage: roundedPercentage,
     });
   };
+  const skipTrackHandler = (direction) => {
+    let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
+    if (direction === "forward") {
+      setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+    } else {
+      if (currentIndex === 0) {
+        setCurrentSong(songs[songs.length - 1]);
+      } else {
+        setCurrentSong(songs[currentIndex - 1]);
+      }
+    }
+  };
   return (
     <div className="App">
       <Nav
@@ -55,6 +67,7 @@ function App() {
         songs={songs}
         setSongs={setSongs}
         setCurrentSong={setCurrentSong}
+        skipTrackHandler={skipTrackHandler}
       ></Player>
       <Library
         songs={songs}
@@ -69,6 +82,7 @@ function App() {
         onLoadedMetadata={timeUpdateHandler}
         ref={audioRef}
         src={currentSong.audio}
+        onEnded={() => skipTrackHandler("forward")}
       ></audio>
     </div>
   );

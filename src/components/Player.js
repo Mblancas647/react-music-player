@@ -18,6 +18,7 @@ function Player({
   songs,
   setSongs,
   setCurrentSong,
+  skipTrackHandler,
 }) {
   useEffect(() => {
     const newSongs = songs.map((song) => {
@@ -63,18 +64,16 @@ function Player({
     audioRef.current.currentTime = e.target.value;
     setSongInfo({ ...songInfo, currentTime: e.target.value });
   };
-  const skipTrackHandler = (direction) => {
+
+  const songEndHandler = async () => {
     let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
-    if (direction === "forward") {
-      setCurrentSong(songs[(currentIndex + 1) % songs.length]);
-    } else {
-      if (currentIndex === 0) {
-        setCurrentSong(songs[songs.length - 1]);
-      } else {
-        setCurrentSong(songs[currentIndex - 1]);
-      }
+    await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+
+    if (isPlaying) {
+      setTimeout(() => {
+        audioRef.current.play();
+      }, 100);
     }
-    //playAudio(isPlaying, audioRef);
   };
 
   const trackAnimation = {
